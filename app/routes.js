@@ -27,7 +27,7 @@ module.exports = function(app, passport, db) {
 // message board routes ===============================================================
 
     app.post('/entries', (req, res) => {
-      db.collection('entries').save({name: req.body.name, msg: req.body.msg}, (err, result) => {
+      db.collection('entries').save({games: req.body.games, location: req.body.location}, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
         res.redirect('/profile')
@@ -36,10 +36,7 @@ module.exports = function(app, passport, db) {
 
     app.put('/entries', (req, res) => {
       db.collection('entries')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-        // $set: {
-        //   thumbUp:req.body.thumbUp + 1
-        // }
+      .findOneAndUpdate({games: req.body.games, location: req.body.location}, {
       }, {
         sort: {_id: -1},
         upsert: true
@@ -50,7 +47,7 @@ module.exports = function(app, passport, db) {
     })
 
     app.delete('/entries', (req, res) => {
-      db.collection('entries').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+      db.collection('entries').findOneAndDelete({games: req.body.games, location: req.body.location}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })
