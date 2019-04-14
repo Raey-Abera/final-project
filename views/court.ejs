@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  </head>
+  <body>
+
+<%= court.name %>
+
+<span><% court._id %></span>
+
+<form class="" action="/api/court" method="post">
+  <input type="text" name="userName" placeholder="enter your name">
+  <input type="text" name="courtId" value="<% court._id %>" hidden>
+  <!-- <input class="playerInput" type="text" placeholder="players" name="attendees[]"/> -->
+  <input id="addPlayerInput" type="button" value="+"/>
+  <input type="datetime-local" name="date" value="04/13/2019">
+  <button type="submit" name="button">submit</button>
+</form>
+
+<script src="/court.js" charset="utf-8"></script>
+</body>
+</html>
