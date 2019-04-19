@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+		/* background-image: url("img/bbc2.jpeg") */
 }
 ol, ul {
 	list-style: none;
@@ -51,94 +52,247 @@ table {
 
 *{
 	box-sizing: border-box;
+}header {
+  padding: 15px;
+  height: 80px;
+  background-color: rgb(228, 85, 44);
+}
+.navleft {
+  float: left;
+  padding-left: 5%;
+  padding: 8px;
+  text-decoration: none;
+  color: white;
+}
+.mapPage{
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: rgb(207,205,186);
 }
 
-header {
-	padding: 15px;
-	height: 60px;
-	background-color: rgb(228,85,44);
+a {
+  text-decoration: none;
+  color: white;
 }
-nav ul li a{
-	float: left;
-	padding-left: 5%;
-	text-decoration: none;
-	color:white;
-}
-.navRight{
-	margin-left: 85%;
-
-}
-nav button{
-	background-color: inherit;
-	color: white;
-	border:2px solid white;
+.navRight {
+  margin-left: 85%;
 }
 
-.hero{
-	height: 775px;
-	background-image: url('img/gamez.jpg');
-	background-size: cover;
-	background-position: bottom;
-	color: white;
-	/* opacity: .7; */
+.right-nav {
+  padding: 8px;
+  float: right;
+  width: 125px;
+}
+nav button {
+  background-color: inherit;
+  color: white;
+  border: 2px solid white;
 }
 
-h1{
-	padding-top: 100px;
-	font-size: 50px;
-	text-align: center;
-	line-height: 1.5;
-	text-shadow: 1px 1px 5px white;
-}
-p{
-	font-size: 20px;
-	text-align: center;
-	padding: 10px;
-	line-height: 1.5;
-}
-.games{
-	width: 47%;
-	height: 53px;
-	margin-left: 8%;
-}
-.location{
-	width: 32%;
-	height: 50px;
-	margin-left: 22px;
-}
-.input{
-	margin-top: 110px;
-	opacity: .8;
+.hero {
+  height: 775px;
+  background-image: url("img/gamez.jpg");
+  background-size: cover;
+  background-position: bottom;
+  color: white;
+  /* opacity: .7; */
 }
 
-.bottomContainer h4, .bottomContainer p{
-	width:36%;
-	display: inline-block;
-	margin: 2px 0 18px 9%
+.hero-login {
+	border: solid rgb(226, 228, 210) 1px;
+	background-color: rgb(200,194,174);
+	opacity: 0.9;
+	height: 450px;
+	width: 36%;
+	position: relative;
+	top: 175px;
+	left: 31%;
 }
-.bottomContainer h4{
-	color:grey;
-	padding:15px;
+
+.login-button {
+  position: relative;
+  left: 32%;
+  top: 11px;
+  height: 35px;
+  background-color: #e4552b;
+  box-shadow: 1px 1px 20px 0px #dd380d;
+  font-size: 16px;
+  font-weight: 100;
+  padding: 7px;
+  margin: 4px;
+  border-radius: 6px;
+}
+
+.login-button:hover {
+     background: #d0c2bd;
+     text-decoration: none;
+}
+
+span {
+  display: block;
+}
+.time{
+	display:inline;
+}
+
+h1 {
+  padding-top: 100px;
+  font-size: 50px;
+  text-align: center;
+  line-height: 1.5;
+  text-shadow: 1px 1px 5px white;
+}
+p {
+  font-size: 20px;
+  text-align: center;
+  padding: 10px;
+  line-height: 1.5;
+}
+
+.games {
+  width: 32%;
+  /* height: 50px; */
+  margin-left: 15%;
+	padding:5px;
+}
+
+.location {
+  width: 32%;
+  height: 50px;
+  margin-left: 1%;
+}
+.input {
+  margin-top: 110px;
+  opacity: 0.8;
+}
+
+.bottomContainer h4,
+.bottomContainer p {
+  width: 36%;
+  display: inline-block;
+  margin: 2px 0 18px 9%;
+}
+.bottomContainer h4 {
+  color: grey;
+  padding: 15px;
 }
 h4 {
-	text-align: center;
-	font-size: 15px;
-	font-weight: bold;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
 }
 
-
-footer{
-	height:60px;
-	background-color: rgb(228,85,44);
+footer {
+  height: 80px;
+  background-color: rgb(228, 85, 44);
+	clear:both;
+}
+.mainContainer {
+  width: 100%;
+  display: block;
+  clear: both;
 }
 
-.gameListing{
-	border: 2px solid black;
+.gameListing {
+	border: solid rgb(226, 228, 210) 1px;
+	background-color: rgb(200,194,174);
+  opacity: 0.9;
+  margin: 45px;
+  margin-left: 5%;
+  width: 40%;
+  float: left;
+  margin-bottom: 50px;
 }
 
-#map{
-	
+h2 {
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+  padding-right: 10px;
+  font-size: 30px;
 }
+
+.gameListing li {
+  border: solid rgb(226, 228, 210) 1px;
+  /* height: 129px; */
+  text-align: center;
+  line-height: 17px;
+  width: 90%;
+  margin: 30px;
+  padding: 5px;
+}
+/* .map{
+	clear:both;
+	display: block;
+} */
+#map {
+  width: 50%;
+	height: 500px;
+	margin: 0 auto;
+	margin-top:50px;
+  display: block;
+  clear: both;
+	border: solid rgb(226, 228, 210) 1px;
+	position: relative;
+	width: 70%;
+	up: 8px;
+	left: 8px;
+}
+.court-name {
+  text-align: center;
+  padding: 15px;
+}
+.playerstings {
+  position: relative;
+  left: 25%;
+  padding: 40px;
+  text-align: center;
+  border: solid black 1px;
+  background-color:rgb(232, 232, 232);
+  opacity: 0.9;
+  margin: 68px;
+  width: 40%;
+}
+.mainContainer{
+	float: left;
+}
+
+.loginsign{
+	/* background-image: url("img/bbc4.jpeg"); */
+	/* background-size:cover; */
+	background-color: rgb(200,194,174);
+	opacity: 0.9;
+	margin-top:100px;
+}
+
+.sect{
+	border: solid rgb(226, 228, 210) 1px;
+	background-color: rgb(200,194,174);
+	width: 690px;
+	border-radius: 25px;
+}
+
+.courtsPic{
+	width:100%;
+}
+
+.court-listings {
+  position: relative;
+  left: 25%;
+  padding: 40px;
+  text-align: center;
+  border: solid rgb(226, 228, 210) 1px;
+  background-color: rgb(207,205,186);
+  opacity: 0.9;
+  margin: 68px;
+  width: 40%;
+	}
+
+	.courtDetails{
+	background-color: rgb(214,211,195);
+	}
+
 
 /*###################################### */
 /*media queries  */

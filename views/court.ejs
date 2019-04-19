@@ -6,21 +6,76 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   </head>
-  <body>
+  <body class="courtDetails">
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+        </ul>
+      </nav>
 
-<%= court.name %>
+      <nav class="navRight">
+        <a href="/"><button>Log Out</button></a>
+      </nav>
+    </header>
 
-<span><% court._id %></span>
-
+<div class="court-listings">
+  <div class="court-name">
+    <%= bbCourt %>
+  </div>
 <form class="" action="/api/court" method="post">
-  <input type="text" name="userName" placeholder="enter your name">
-  <input type="text" name="courtId" value="<% court._id %>" hidden>
-  <!-- <input class="playerInput" type="text" placeholder="players" name="attendees[]"/> -->
-  <input id="addPlayerInput" type="button" value="+"/>
-  <input type="datetime-local" name="date" value="04/13/2019">
+  <input type="text" name="userName" placeholder="enter your name" value="<%=user.local.email%>" hidden>
+  <input type="text" name="courtName" value="<%= bbCourt %>" hidden>
+  <%# <input id="addPlayerInput" type="button" value="+"/> %>
+  <input type="date" name="date" value="4/25/2019">
+  <input type="time" name="startTime" value="1:00PM">
+  <input type="time" name="stopTime" value="2:00PM">
   <button type="submit" name="button">submit</button>
 </form>
 
+<h2 class="" >Address </h2> <%= JSON.stringify(courtDetails.result.formatted_address) %>
+
+<h2>Hours </h2>
+
+<ul>
+  <%
+  if('opening_hours' in courtDetails.result) { //string in object returns true if object has that key
+    courtDetails.result.opening_hours.weekday_text.map(day =>{ //true, run this
+  %>
+  <li>
+    <%= day %>
+  </li>
+  <% })
+} else { // not true, display following message
+  %>
+  <li>Open 24 hours</li>
+<% } %>
+</ul>
+
+<h2>Pictures </h2>
+<% if ('photos' in courtDetails.result) { %>
+  <img class="courtsPic" src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=<%= courtDetails.result.photos[0].photo_reference %>&key=AIzaSyDLa-Y8sYQtEwMsS27acKPci1WHBQH_330" alt="">
+<% } else { %>
+  <% if (bbCourt === "Titus Sparrow Court") {%>
+  <img class="courtsPic" src="img/bbc3.jpeg" alt="">
+  <%}%>
+  <% if (bbCourt === "Meadows Basketball Courts") {%>
+  <img class="courtsPic" src="img/bbc2.jpeg" alt="">
+  <%}%>
+  <% if (bbCourt === "Basketball Court @ Andrew P. Puopolo. Junior Athletic Field") {%>
+  <img class="courtsPic" src="img/bbc4.jpeg" alt="">
+  <%}%>
+  <% if (bbCourt === "BEMIS BASKETBALL COURT") {%>
+  <img class="courtsPic" src="img/bbc7.jpeg" alt="">
+  <%}%>
+
+
+<% } %>
+</div>
+<footer></footer>
+<script>
+  console.log(<%- JSON.stringify(courtDetails) %>)
+</script>
 <script src="/court.js" charset="utf-8"></script>
 </body>
 </html>

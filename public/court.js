@@ -3,7 +3,7 @@ document.getElementById("addPlayerInput").addEventListener('click', function(){
   input.className += "playerInput"
   input.type = "text"
   input.placeholder = "players"
-  input.name = "attendees[]"
+  input.name = "players[]"
   console.log('yo')
 
   var firstInputTag = document.getElementsByClassName('playerInput')[0];

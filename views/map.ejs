@@ -1,60 +1,142 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
-  <body>
-
-    <div class ="gameListing">
-      <h2>Scheduled Games</h2>
+<head>
+  <title>Simple Map</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <style>
+  /* Always set the map height explicitly to define the size of the div
+  * element that contains the map. */
+  /* #map {
+    height: 500px;
+    width: 70%
+    border: 2px solid black;
+    position: relative;
+    up: 8px;
+    left: 8px;
+  } */
+  /* Optional: Makes the sample page fill the window. */
+  /* html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(207,205,186);
+  } */
+  </style>
+</head>
+<body class="mapPage">
+  <header>
+    <nav>
       <ul>
-        <li>game 1</li>
-        <li>2</li>
+        <li><a href="#">Home</a></li>
       </ul>
-    </div>
+    </nav>
 
-    <span><% court._id %></span>
+    <nav class="navRight">
+      <a href="/"><button>Log Out</button></a>
+    </nav>
+  </header>
 
-    <div id="map"></div>
+  <div id="map"></div>
+  <section class="map">
     <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat:42.346384, lng:-71.090760 },
-          zoom: 13
-        });
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat:42.340338, lng:-71.090241},
+        center: {lat:42.344272, lng:-71.094478},
+        center: {lat:42.367608, lng:-71.078487},
+        center: {lat:42.410307, lng:-71.058906},
+        center: {lat:42.362249, lng:-71.115393},
+        center: {lat:42.375753, lng:-71.197038},
+        center: {lat:42.292250, lng:-71.084647},
+        center: {lat:42.357776, lng:-71.160271},
+        center: {lat:42.343986, lng:-71.080252},
+        center: {lat:42.369395, lng:-71.054815},
+        // center: {lat:, lng:},
+        // center: {lat:, lng:},
+        // center: {lat:, lng:},
+        zoom: 12
+      });
 
-        var marker;
-        <% for(var i=0; i<court.length; i++) {%>
-           marker = new google.maps.Marker({
-            position: {lat:<%= court[i].lat %>, lng:<%= court[i].lon %>},
-            map: map,
-            title: "<%= court[i].name %>"
-          });
-          marker.addListener('click', function() {
-          window.location="/court/<%=court[i]._id %>"
-         });
+      var marker;
+      <% for(var i=0; i<court.length; i++) {%>
+        marker = new google.maps.Marker({
+          position: {lat:<%= court[i].lat %>, lng:<%= court[i].lon %>},
+          map,
+          title: "<%= court[i].name %>"
+        });
+        marker.addListener('click', function() {
+          window.location="/court?courtName=<%= court[i].name %>"
+        });
 
         <% } %>
       }
 
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLa-Y8sYQtEwMsS27acKPci1WHBQH_330&callback=initMap"
-    async defer></script>
-  </body>
-</html>
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLa-Y8sYQtEwMsS27acKPci1WHBQH_330&callback=initMap"
+      async defer></script>
+
+
+  <div class="mainContainer">
+    <div class ="gameListing">
+      <!-- Hi, <span><%= user.local.email %></span> -->
+      <h2>Upcoming Games</h2>
+      <ul>
+        <% for(var i=0; i<games.length; i++) {%>
+          <% if(games[i].fullGame ===false) {%>
+          <li class="games">
+            <span><%= `Host: ${games[i].host}`%></span>
+            <span><a href=""><%= `Court: ${games[i].courtName}`%></a></span>
+            <span><%= `Date: ${games[i].date}`%></span>
+            <span class="time"> <%= `Time: ${games[i].startTime}`%></span>
+            <span class="time"> <%= games[i].stopTime%></span>
+            <span><%= `Roster: ${games[i].players}`%></span>
+            <button class="joinButton" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Join Game</button>
+            <% for(var j=0; j<games[i].players.length; j++) {%>
+              <% if(games[i].players[j] === user.local.email) {  %>
+                <button class="removeMe" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Remove Me!</button>
+              <% } %>
+            <% } %>
+
+          </li>
+          <% } %>
+          <% } %>
+        </ul>
+      </div>
+
+      <div class ="gameListing">
+        <!-- Hi, <span><%= user.local.email %></span> -->
+        <h2>Full Games</h2>
+        <ul>
+          <% for(var i=0; i<games.length; i++) {%>
+            <% if(games[i].fullGame ===true) {%>
+            <li class="games">
+              <span><%= `Host: ${games[i].host}`%></span>
+              <span><a href=""><%= `Court: ${games[i].courtName}`%></a></span>
+              <span><%= `Date: ${games[i].date}`%></span>
+              <span class="time"> <%= `Time: ${games[i].startTime}`%></span>
+              <span class="time"> <%= games[i].stopTime%></span>
+              <span><%= `Roster: ${games[i].players}`%></span>
+
+              <% for(var j=0; j<games[i].players.length; j++) {%>
+                <% if(games[i].players[j] === user.local.email) {  %>
+                  <button class="removeMe" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Remove Me!</button>
+                <% } %>
+              <% } %>
+            </li>
+            <% } %>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+
+
+    <!-- <span><% court._id %></span>
+    <%= court %> -->
+    </section>
+    <footer></footer>
+    <script src="main.js" charset="utf-8"></script>
+    </body>
+    </html>
