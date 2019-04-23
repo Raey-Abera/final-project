@@ -1,6 +1,0 @@
-//for loop to itterate through photos in court EJS
-
-<% for(var i=0; i<courtDetails.length; i++) {%>
-    <% } %>
-
-//If conidtion to check for matching user id's in players arraay in the object 

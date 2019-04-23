@@ -4,7 +4,7 @@
     <title>Pick Up Game</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
@@ -21,14 +21,9 @@
     </nav>
   </header>
 
-  <!-- show game options here -->
+  <% if(message) { %>
 
-<!--
-  <div></div>
-  <div></div>
-  <div></div>
-  -->
-
+  <% } %>
   <section class="hero">
       <h1>Games on your time!</h1>
       <p>Easily find, join, and create pick-up games wherever you are.</p>
@@ -69,7 +64,7 @@
                 <% } %>
 
             </div>
-        </div> 
+        </div>
 <script src="main.js"></script>
 
 </body>

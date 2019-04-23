@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/popup.css">
+  </head>
+  <body class="player">
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+        </ul>
+        <div class="box">
+        	<a class="popbutton" href="#popup1">Player Info</a>
+        </div>
+      </nav>
+
+      <nav class="navRight">
+        <a href="/"><button class="log">Log Out</button></a>
+      </nav>
+    </header>
+
+    <% if(message) { %>
+      <div class="error">
+        <%= message %>
+      </div>
+    <% } %>
+
+    <% if(player) { %>
+    <div class="playerCard">
+      <ul>
+        <li class="stats">
+          <section class="frame">
+      <% if ('cardImage' in player) { %>
+        <img class="playerImg" src="<%= player.cardImage %>" alt=""/>
+      <% } else { %>
+        <span>No image for this player</span>
+      <% } %>
+      <% if ('name' in player) { %>
+      <span>Name: <%= player.name %></span>
+      <% } else { %>
+        <span>Name: N/A</span>
+      <% } %>
+      <% if ('height' in player) { %>
+      <span>Height: <%= player.height %></span>
+      <% } else { %>
+        <span>Height: N/A</span>
+      <% } %>
+      <% if ('weight' in player) { %>
+      <span>Weight: <%= player.weight %></span>
+      <% } else { %>
+        <span>Weight: N/A</span>
+      <% } %>
+      <% if ('position' in player) { %>
+      <span>Position: <%= player.position %></span>
+      <% } else { %>
+        <span>Position: N/A</span>
+      <% } %>
+      <% if ('favTeam' in player) { %>
+      <span>Favorite Team: <%= player.favTeam %></span>
+      <% } else { %>
+        <span>Favorite Team: N/A</span>
+      <% } %>
+      </section>
+      </li>
+      </ul>
+    </div>
+    <% } %>
+
+    <div id="popup1" class="overlay">
+    	<div class="popup">
+    		<h2>Player Profile</h2>
+    		<a class="close" href="#">&times;</a>
+    		<div class="content">
+          <% if(player && user.local.email === player.local.email) { %>
+          <form class="playerForm" action="/api/playerCard/<%= player.local.email %>" enctype="multipart/form-data" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="name">
+            <label for="height">Height:</label>
+            <input type="text" id="height" name="height" placeholder="height">
+            <label for="weight">Weight:</label>
+            <input type="text" id="weight" name="weight" placeholder="weight">
+            <label for="position">Position:</label>
+            <input type="text" id="position" name="position" placeholder="position">
+            <label for="favTeam">Favorite Team:</label>
+            <input type="text" id="favTeam" name="favTeam" placeholder="favTeam">
+            <label for="img">Upload Image:</label>
+            <input type="file" id="img" name="cardImage">
+            <button type="submit" name="button">submit</button>
+          </form>
+          <% } %>
+    		</div>
+    	</div>
+    </div>
+
+    <!-- <% if(player && user.local.email === player.local.email) { %>
+    <form class="playerForm" action="/api/playerCard/<%= player.local.email %>" enctype="multipart/form-data" method="post">
+      <input type="text" name="height" placeholder="height">
+      <input type="text" name="weight" placeholder="weight">
+      <input type="text" name="position" placeholder="position">
+      <input type="text" name="favTeam" placeholder="favTeam">
+      <input type="file" name="cardImage">
+      <button type="submit" name="button">submit</button>
+    </form>
+    <% } %> -->
+
+    <section class="grid">
+      <% for(let i=0; i < cards.length; i++) { %>
+        <% if(cards[i].cardImage) {%>
+      <section class="grid-item">
+        <section class="frame" >
+
+          <img class="playerImg" src="<%= cards[i].cardImage %>" />
+          <span class="text">Name: <%= cards[i].name %></span>
+          <span class="text">Height: <%= cards[i].height %></span>
+          <span class="text">Weight: <%= cards[i].weight %></span>
+          <span class="text">Position: <%= cards[i].position %></span>
+          <span class="text">Favorite Team: <%= cards[i].favTeam %></span>
+
+        </section>
+      </section>
+        <% } %>
+      <% } %>
+    </section>
+
+  </body>
+</html>

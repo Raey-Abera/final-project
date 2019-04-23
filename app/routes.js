@@ -1,5 +1,22 @@
-module.exports = function(ObjectId, app, passport, db) {
+module.exports = function(ObjectId, app, passport, db, multer) {
 const fetch = require('node-fetch');// installed node-fetch to enable server-side fetch in court routes
+
+//---------------------------------------
+// IMAGE CODE
+//---------------------------------------
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'public/img/uploads')
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now() + ".png")
+    }
+});
+var upload = multer({storage: storage});
+//---------------------------------------
+// IMAGE CODE END
+//---------------------------------------
+
   // normal routes ===============================================================
 
   // show the home page (will also have our login links)
@@ -11,7 +28,6 @@ const fetch = require('node-fetch');// installed node-fetch to enable server-sid
   app.get('/profile', isLoggedIn, function(req, res) {
     db.collection('courts').find().toArray((err, courts) => {
       if (err) return console.log(err)
-      console.log(courts)
       // console.log(courts)
       db.collection('games').find().toArray((err, games) => {
         if (err) return console.log(err)
@@ -55,7 +71,7 @@ const fetch = require('node-fetch');// installed node-fetch to enable server-sid
         .then((courtDetails) => {
           console.log(courtDetails)
           res.render('court.ejs', {
-            user : req.user,
+            user : req.user,//variable and values being sent to the page
             court: court,
             games: games,
             bbCourt,
@@ -66,6 +82,31 @@ const fetch = require('node-fetch');// installed node-fetch to enable server-sid
       })
     })
   });
+
+  app.get('/playerCard/:player', isLoggedIn, function(req, res) {
+    db.collection('users').findOne({"local.email": req.params.player}, (err, player) => {
+      console.log(player)
+      var message = null
+      if(!player) {
+        message = "That user doesn't exist";
+      }
+      db.collection('users').find().toArray((err, cards) => {
+          if (err) return console.log(err)
+        // inner content##########################
+        res.render('playercard.ejs', {
+          player: player,
+          user: req.user,
+          message: message,
+          cards: cards
+        })
+          // inner content End##########################
+
+      })
+
+    })
+  });
+
+
 
   // LOGOUT ==================================================================
   app.get('/logout', function(req, res) {
@@ -119,25 +160,31 @@ const fetch = require('node-fetch');// installed node-fetch to enable server-sid
      res.redirect('/profile')
    })
   })
-  // enclose findOneAndUpdate in find one
-  // running with same filter ( use same ObjectId)
 
-  // if condtion to see if playerId matches a playerId in the array in the game object, then see flash
-  // const playerUpdated= games.map(game => {
-  //   if (player == userId){
-  //     do something
-  //   }
-  //   return game
-  // })
-  // console.log(playersUpdated)
-  // pass in playersUpdated
+  app.post('/api/playerCard/:player', upload.single('cardImage'), (req, res) => {
+    db.collection('users').findOneAndUpdate({"local.email": req.params.player}, {
+      $set: {
+        name: req.body.name,
+        height:req.body.height,
+        weight:req.body.weight,
+        position:req.body.position,
+        favTeam:req.body.favTeam,
+        cardImage:'/img/uploads/' + req.file.filename
+      }
+    }, (err, result) => {
+      if (err) return console.log(err)
+      console.log('saved to database')
+      res.redirect('/playerCard/' + req.params.player)
+    })
+  })
 
-  // app.delete('/', (req, res) => {
-  //   db.collection('').findOneAndDelete({games: req.body.games}, (err, result) => {
-  //     if (err) return res.send(500, err)
-  //     res.send('Message deleted!')
-  //   })
-  // })
+  app.delete('/api/gameDelete', (req, res) => {
+    db.collection('games').findOneAndDelete({_id: ObjectId(req.body.gameId)}, (err, result) => {
+      if (err) return res.send(500, err)
+      res.send('Message deleted!')
+    })
+  })
+
 
   // =============================================================================
   // AUTHENTICATE (FIRST LOGIN) ==================================================

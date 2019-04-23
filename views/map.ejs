@@ -5,36 +5,18 @@
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
-  <style>
-  /* Always set the map height explicitly to define the size of the div
-  * element that contains the map. */
-  /* #map {
-    height: 500px;
-    width: 70%
-    border: 2px solid black;
-    position: relative;
-    up: 8px;
-    left: 8px;
-  } */
-  /* Optional: Makes the sample page fill the window. */
-  /* html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: rgb(207,205,186);
-  } */
-  </style>
+
 </head>
 <body class="mapPage">
   <header>
     <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-      </ul>
+      <a href="/">Home</a>
+      <a href=<%=`/playerCard/${user.local.email}`%>>My Profile</a>
     </nav>
 
     <nav class="navRight">
-      <a href="/"><button>Log Out</button></a>
+      <a href=<%=`/playerCard/${user.local.email}`%>><button>Player Profiles</button></a>
+      <a href="/login"><button>Log Out</button></a>
     </nav>
   </header>
 
@@ -75,9 +57,6 @@
       }
 
       </script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLa-Y8sYQtEwMsS27acKPci1WHBQH_330&callback=initMap"
-      async defer></script>
-
 
   <div class="mainContainer">
     <div class ="gameListing">
@@ -88,18 +67,19 @@
           <% if(games[i].fullGame ===false) {%>
           <li class="games">
             <span><%= `Host: ${games[i].host}`%></span>
-            <span><a href=""><%= `Court: ${games[i].courtName}`%></a></span>
+            <span><a href="/court?courtName=<%= games[i].courtName %>"><%= `Court: ${games[i].courtName}`%></a></span>
             <span><%= `Date: ${games[i].date}`%></span>
             <span class="time"> <%= `Time: ${games[i].startTime}`%></span>
             <span class="time"> <%= games[i].stopTime%></span>
             <span><%= `Roster: ${games[i].players}`%></span>
-            <button class="joinButton" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Join Game</button>
-            <% for(var j=0; j<games[i].players.length; j++) {%>
-              <% if(games[i].players[j] === user.local.email) {  %>
-                <button class="removeMe" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Remove Me!</button>
-              <% } %>
+            <% if(games[i].players.includes(user.local.email)) {  %>
+              <button class="removeMe" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Remove Me!</button>
+            <% } else { %>
+              <button class="joinButton" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Join Game</button>
             <% } %>
-
+            <% if(games[i].host === user.local.email) {  %>
+              <button class="deleteGame" data-gameId="<%= games[i]._id %>">Delete Game :(</button>
+            <% } %>
           </li>
           <% } %>
           <% } %>
@@ -114,16 +94,18 @@
             <% if(games[i].fullGame ===true) {%>
             <li class="games">
               <span><%= `Host: ${games[i].host}`%></span>
-              <span><a href=""><%= `Court: ${games[i].courtName}`%></a></span>
+              <span><a href="/court?courtName=<%= games[i].courtName %>"><%= `Court: ${games[i].courtName}`%></a></span>
               <span><%= `Date: ${games[i].date}`%></span>
               <span class="time"> <%= `Time: ${games[i].startTime}`%></span>
               <span class="time"> <%= games[i].stopTime%></span>
               <span><%= `Roster: ${games[i].players}`%></span>
-
-              <% for(var j=0; j<games[i].players.length; j++) {%>
-                <% if(games[i].players[j] === user.local.email) {  %>
-                  <button class="removeMe" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Remove Me!</button>
-                <% } %>
+              <% if(games[i].players.includes(user.local.email)) {  %>
+                <button class="removeMe" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Remove Me!</button>
+              <% } else { %>
+                <button class="joinButton" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Join Game</button>
+              <% } %>
+              <% if(games[i].host === user.local.email) {  %>
+                <button class="deleteGame" data-gameId="<%= games[i]._id %>">Delete Game :(</button>
               <% } %>
             </li>
             <% } %>
@@ -132,11 +114,13 @@
         </div>
       </div>
 
-
     <!-- <span><% court._id %></span>
     <%= court %> -->
     </section>
     <footer></footer>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLa-Y8sYQtEwMsS27acKPci1WHBQH_330&callback=initMap"
+    async defer></script>
     <script src="main.js" charset="utf-8"></script>
     </body>
     </html>
