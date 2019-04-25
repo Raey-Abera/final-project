@@ -12,7 +12,7 @@
     <header>
       <nav>
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a href="/">Home</a></li>
         </ul>
         <div class="box">
         	<a class="popbutton" href="#popup1">Player Info</a>
@@ -20,7 +20,7 @@
       </nav>
 
       <nav class="navRight">
-        <a href="/"><button class="log">Log Out</button></a>
+        <a href="/login"><button class="log">Log Out</button></a>
       </nav>
     </header>
 
@@ -32,7 +32,7 @@
 
     <% if(player) { %>
     <div class="playerCard">
-      <ul>
+      <ul class="cardList">
         <li class="stats">
           <section class="frame">
       <% if ('cardImage' in player) { %>
@@ -68,12 +68,41 @@
       </section>
       </li>
       </ul>
+
+      <div class ="myGames lefty">
+        <!-- Hi, <span><%= user.local.email %></span> -->
+        <h2 class="myTitle">My Games</h2>
+        <ul >
+          <% for(var i=0; i<myGames.length; i++) {%>
+            <% if(myGames[i].fullGame ===false) {%>
+            <li class="user">
+              <!-- <span><%= `Host: ${myGames[i].host}`%></span> -->
+              <span class="myList"><a class="courtan" href="/court?courtName=<%= myGames[i].courtName %>"><%= `Court: ${myGames[i].courtName}`%></a></span>
+              <span class="myList"><%= `Date: ${myGames[i].date}`%></span>
+              <span class="time myList"> <%= `Time: ${myGames[i].startTime}`%></span>
+              <span class="time myList"> <%= myGames[i].stopTime%></span>
+              <!-- <span><%= `Roster: ${myGames[i].players}`%></span> -->
+              <span class="myList"><%= `Players: ${myGames[i].players.length}`%></span>
+              <!-- <% if(myGames[i].players.includes(user.local.email)) {  %>
+                <button class="removeMe myList big" data-userId="<%= user.local.email %>" data-gameId="<%= myGames[i]._id %>">Remove Me!</button>
+              <% } else { %>
+                <button class="joinButton myList" data-userId="<%= user.local.email %>" data-gameId="<%= myGames[i]._id %>">Join Game</button>
+              <% } %>
+              <% if(myGames[i].host === user.local.email) {  %>
+                <button class="deleteGame myList" data-gameId="<%= myGames[i]._id %>">Delete Game :(</button>
+              <% } %> -->
+            </li>
+            <% } %>
+            <% } %>
+          </ul>
+        </div>
     </div>
     <% } %>
 
+
     <div id="popup1" class="overlay">
     	<div class="popup">
-    		<h2>Player Profile</h2>
+    		<!-- <h2>Player Profile</h2> -->
     		<a class="close" href="#">&times;</a>
     		<div class="content">
           <% if(player && user.local.email === player.local.email) { %>
@@ -96,17 +125,6 @@
     		</div>
     	</div>
     </div>
-
-    <!-- <% if(player && user.local.email === player.local.email) { %>
-    <form class="playerForm" action="/api/playerCard/<%= player.local.email %>" enctype="multipart/form-data" method="post">
-      <input type="text" name="height" placeholder="height">
-      <input type="text" name="weight" placeholder="weight">
-      <input type="text" name="position" placeholder="position">
-      <input type="text" name="favTeam" placeholder="favTeam">
-      <input type="file" name="cardImage">
-      <button type="submit" name="button">submit</button>
-    </form>
-    <% } %> -->
 
     <section class="grid">
       <% for(let i=0; i < cards.length; i++) { %>

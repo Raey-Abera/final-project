@@ -1,3 +1,4 @@
+const moment = require('moment')
 module.exports = function(ObjectId, app, passport, db, multer) {
 const fetch = require('node-fetch');// installed node-fetch to enable server-side fetch in court routes
 
@@ -32,10 +33,12 @@ var upload = multer({storage: storage});
       db.collection('games').find().toArray((err, games) => {
         if (err) return console.log(err)
         // console.log('hello', games)
-        const gamesUpdated= games.map(game => {//map is returning a new array
+        const gamesUpdated = games.map(game => {//map is returning a new array
+
           if (game.players.length===10){//condition to set games as full if there are 10 players registered
             game.fullGame = true
           }
+          game.date = moment(game.date).format('MMM D YYYY')
           return game//returning the game object
         })
         console.log(gamesUpdated)
@@ -92,19 +95,26 @@ var upload = multer({storage: storage});
       }
       db.collection('users').find().toArray((err, cards) => {
           if (err) return console.log(err)
-        // inner content##########################
-        res.render('playercard.ejs', {
-          player: player,
-          user: req.user,
-          message: message,
-          cards: cards
-        })
-          // inner content End##########################
+
+          db.collection('games').find().toArray((err, myGames) => {
+              if (err) return console.log(err)
+
+              // inner content##########################
+              res.render('playercard.ejs', {
+                player: player,
+                user: req.user,
+                message: message,
+                cards: cards,
+                myGames: myGames
+              })
+                // inner content End##########################
+          })
 
       })
 
     })
   });
+
 
 
 

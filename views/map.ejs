@@ -11,12 +11,11 @@
   <header>
     <nav>
       <a href="/">Home</a>
-      <a href=<%=`/playerCard/${user.local.email}`%>>My Profile</a>
     </nav>
 
     <nav class="navRight">
-      <a href=<%=`/playerCard/${user.local.email}`%>><button>Player Profiles</button></a>
-      <a href="/login"><button>Log Out</button></a>
+      <a href=<%=`/playerCard/${user.local.email}`%>><button class="playerProfile">Player Profiles</button></a>
+      <a href="/login"><button class="playerProfile">Log Out</button></a>
     </nav>
   </header>
 
@@ -61,17 +60,18 @@
   <div class="mainContainer">
     <div class ="gameListing">
       <!-- Hi, <span><%= user.local.email %></span> -->
-      <h2>Upcoming Games</h2>
+      <h2 class="upcoming" >Upcoming Games</h2>
       <ul>
         <% for(var i=0; i<games.length; i++) {%>
           <% if(games[i].fullGame ===false) {%>
           <li class="games">
-            <span><%= `Host: ${games[i].host}`%></span>
-            <span><a href="/court?courtName=<%= games[i].courtName %>"><%= `Court: ${games[i].courtName}`%></a></span>
-            <span><%= `Date: ${games[i].date}`%></span>
+            <span class="gameL" onloadedmetadata=""><%= `Host: ${games[i].host}`%></span>
+            <span><a class="gameL" class="courtName" href="/court?courtName=<%= games[i].courtName %>"><%= `Court: ${games[i].courtName}`%></a></span>
+            <span class="gameL" ><%= `Date: ${games[i].date}`%></span>
             <span class="time"> <%= `Time: ${games[i].startTime}`%></span>
             <span class="time"> <%= games[i].stopTime%></span>
-            <span><%= `Roster: ${games[i].players}`%></span>
+            <span class="gameL" ><%= `Roster: ${games[i].players}`%></span>
+            <span class="gameL" ><%= `Players: ${games[i].players.length}`%></span>
             <% if(games[i].players.includes(user.local.email)) {  %>
               <button class="removeMe" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Remove Me!</button>
             <% } else { %>
@@ -88,21 +88,22 @@
 
       <div class ="gameListing">
         <!-- Hi, <span><%= user.local.email %></span> -->
-        <h2>Full Games</h2>
+        <h2 class="upcoming">Full Games</h2>
         <ul>
           <% for(var i=0; i<games.length; i++) {%>
             <% if(games[i].fullGame ===true) {%>
             <li class="games">
-              <span><%= `Host: ${games[i].host}`%></span>
-              <span><a href="/court?courtName=<%= games[i].courtName %>"><%= `Court: ${games[i].courtName}`%></a></span>
-              <span><%= `Date: ${games[i].date}`%></span>
+              <span class="gameL" ><%= `Host: ${games[i].host}`%></span>
+              <span><a class="gameL" class="courtName" href="/court?courtName=<%= games[i].courtName %>"><%= `Court: ${games[i].courtName}`%></a></span>
+              <span class="gameL" ><%= `Date: ${games[i].date}`%></span>
               <span class="time"> <%= `Time: ${games[i].startTime}`%></span>
               <span class="time"> <%= games[i].stopTime%></span>
-              <span><%= `Roster: ${games[i].players}`%></span>
+              <span class="gameL" ><%= `Roster: ${games[i].players}`%></span>
+              <span class="gameL" ><%= `Players: ${games[i].players.length}`%></span>
               <% if(games[i].players.includes(user.local.email)) {  %>
                 <button class="removeMe" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Remove Me!</button>
               <% } else { %>
-                <button class="joinButton" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Join Game</button>
+                <!-- <button class="joinButton" data-userId="<%= user.local.email %>" data-gameId="<%= games[i]._id %>">Join Game</button> -->
               <% } %>
               <% if(games[i].host === user.local.email) {  %>
                 <button class="deleteGame" data-gameId="<%= games[i]._id %>">Delete Game :(</button>

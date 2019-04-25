@@ -10,12 +10,12 @@
     <header>
       <nav>
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a href="/">Home</a></li>
         </ul>
       </nav>
 
       <nav class="navRight">
-        <a href="/"><button>Log Out</button></a>
+        <a href="/login"><button class="out">Log Out</button></a>
       </nav>
     </header>
 
@@ -33,16 +33,16 @@
   <button type="submit" name="button">submit</button>
 </form>
 
-<h2 class="" >Address </h2> <%= JSON.stringify(courtDetails.result.formatted_address) %>
+<h3 class="courtEjs" >Address </h3> <%= JSON.stringify(courtDetails.result.formatted_address) %>
 
-<h2>Hours </h2>
+<h3 class="courtEjs" >Hours </h3>
 
 <ul>
   <%
   if('opening_hours' in courtDetails.result) { //string in object returns true if object has that key
     courtDetails.result.opening_hours.weekday_text.map(day =>{ //true, run this
   %>
-  <li>
+  <li class="day">
     <%= day %>
   </li>
   <% })
@@ -52,7 +52,7 @@
 <% } %>
 </ul>
 
-<h2>Pictures </h2>
+<h3 class="courtEjs" >Pictures </h3>
 <% if ('photos' in courtDetails.result) { %>
   <img class="courtsPic" src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=<%= courtDetails.result.photos[0].photo_reference %>&key=AIzaSyDLa-Y8sYQtEwMsS27acKPci1WHBQH_330" alt="">
 <% } else { %>
@@ -65,8 +65,14 @@
   <% if (bbCourt === "Basketball Court @ Andrew P. Puopolo. Junior Athletic Field") {%>
   <img class="courtsPic" src="img/bbc4.jpeg" alt="">
   <%}%>
-  <% if (bbCourt === "BEMIS BASKETBALL COURT") {%>
+  <% if (bbCourt === "Bemis Basketball Court") {%>
   <img class="courtsPic" src="img/bbc7.jpeg" alt="">
+  <%}%>
+  <% if (bbCourt === "RiverSide Press Park") {%>
+  <img class="courtsPic" src="img/bbc8.jpeg" alt="">
+  <%}%>
+  <% if (bbCourt === "Cambridge Athletic Club") {%>
+  <img class="courtsPic" src="img/bbc9.jpeg" alt="">
   <%}%>
 
 

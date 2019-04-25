@@ -52,10 +52,15 @@ table {
 
 *{
 	box-sizing: border-box;
-}header {
+
+}
+header {
   padding: 15px;
   height: 80px;
   background-color: rgb(228, 85, 44);
+}
+body{
+	font-size: 18px;
 }
 .navleft {
   float: left;
@@ -75,6 +80,7 @@ a {
   text-decoration: none;
   color: white;
 }
+
 .navRight {
   margin-left: 85%;
 }
@@ -85,9 +91,10 @@ a {
   width: 125px;
 }
 .log {
-  background-color: inherit;
   color: white;
-  border: 2px solid white;
+	background-color: inherit;
+	border: none;
+	font-size:15px;
 }
 
 .hero {
@@ -96,7 +103,6 @@ a {
   background-size: cover;
   background-position: bottom;
   color: white;
-  /* opacity: .7; */
 }
 
 .hero-login {
@@ -116,7 +122,7 @@ a {
   top: 11px;
   height: 35px;
   background-color: #e4552b;
-  box-shadow: 1px 1px 20px 0px #dd380d;
+  color:white;
   font-size: 16px;
   font-weight: 100;
   padding: 7px;
@@ -125,12 +131,13 @@ a {
 }
 
 .login-button:hover {
-     background: #d0c2bd;
-     text-decoration: none;
+  background: #d0c2bd;
+  text-decoration: none;
 }
 
 span {
   display: block;
+	padding: 5px;
 }
 .time{
 	display:inline;
@@ -152,10 +159,10 @@ p {
 
 .games {
   width: 32%;
-  /* height: 50px; */
   margin-left: 15%;
 	padding:5px;
 }
+
 
 .location {
   width: 32%;
@@ -195,37 +202,40 @@ footer {
 }
 
 .gameListing {
-	border: solid rgb(226, 228, 210) 1px;
-	background-color: rgb(200,194,174);
+	/* border: solid rgb(226, 228, 210) 1px; */
   opacity: 0.9;
   margin: 45px;
   margin-left: 5%;
   width: 40%;
   float: left;
   margin-bottom: 50px;
+  background-color: rgb(207,205,186);
 }
 
 h2 {
-  font-weight: bold;
-  padding: 5px;
-  text-align: center;
-  padding-right: 10px;
-  font-size: 30px;
+	font-weight: bold;
+	padding: 5px;
+	text-align: center;
+	padding-right: 10px;
+	font-size: 30px;
+	border: 2px solid white;
+	width: 50%;
+	margin-left: 25%;
+	margin-top: 12px;
+	background-color: #e4552b;
+	color: white;
 }
 
 .gameListing li {
-  border: solid rgb(226, 228, 210) 1px;
-  /* height: 129px; */
+  border: 2px solid rgb(226, 96, 58);
   text-align: center;
   line-height: 17px;
   width: 90%;
   margin: 30px;
   padding: 5px;
+	 min-height: 200px;
 }
-/* .map{
-	clear:both;
-	display: block;
-} */
+
 #map {
   width: 50%;
 	height: 500px;
@@ -259,8 +269,6 @@ h2 {
 }
 
 .loginsign{
-	/* background-image: url("img/bbc4.jpeg"); */
-	/* background-size:cover; */
 	background-color: rgb(200,194,174);
 	opacity: 0.9;
 	margin-top:100px;
@@ -293,6 +301,8 @@ h2 {
 	background-color: rgb(214,211,195);
 	}
 
+	/* Player EJS ###########################*/
+
 .cardContainer{
 	border:2px solid blue;
 }
@@ -302,34 +312,35 @@ width:100%;
 }
 
 .playerCard{
-	border: 2px solid lime;
+	border: solid rgb(226, 228, 210) 1px;
+	background-color: rgb(200,194,174);
 	text-align: center;
 	width:100%;
+	float: left;
 }
 
-.stats{
-  width: 17%;
-	padding:5px;
-}
-
-.stats > span {
-    font-size: 18px;
-}
+.stats {
+    padding: 18px;
+	}
 
 .frame{
-	outline: 10px solid lightblue;
+	outline: 10px solid rgb(228, 85, 44);
 	margin: 10px;
 	border: 5px solid white;
 }
 
+.frame > span{
+padding:5px;
+}
+
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    grid-template-rows: 359px 300px;
-    grid-gap: 20px;
-    align-items: stretch;
-    padding: 20px;
-		grid-column-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  grid-template-rows: 371px 300px;
+  grid-gap: 20px;
+  align-items: stretch;
+  padding: 20px;
+	grid-column-gap: 10px;
 }
 
 .grid > section {
@@ -348,9 +359,163 @@ width:100%;
 	text-align: center;
 }
 
+.myGames {
+    border: solid rgb(226, 228, 210) 1px;
+    opacity: 0.9;
+    margin: 16px;
+		padding: 18px;
+}
 
+.cardList{
+	float: left;
+  width: 18%;
+}
 
+.lefty{
+	float: left;
+	width: 78%;
+	background-color: rgb(207,205,186);
+}
 
+.myTitle{
+font-weight: bold;
+padding: 5px;
+text-align: center;
+padding-right: 10px;
+font-size: 30px;
+width: 20%;
+margin: 0 auto;
+border: 2px solid  rgb(228, 85, 44);
+color: white;
+
+}
+
+.myList{
+	display: inline-block;
+	margin: 2px 0px 5px 32px;
+}
+
+.courtan {
+  text-decoration: none;
+  color: #181717;
+}
+
+.user{
+	font-size: 17px;
+	width: 100%;
+	border: solid rgb(226, 228, 210) 1px;
+	background-color: rgb(207,205,186);
+	margin: 3px 0px 6px 0px;
+}
+
+.big {
+    font-size: 13px;
+    margin: 4px;
+    color: #f4f4f4;
+    background:rgb(36,214,101);
+}
+
+.playerProfile{
+	background-color: inherit;
+	border: none;
+	color:white;
+	font-size:15px;
+}
+
+.courtName{
+	color:black;
+}
+
+.court-name{
+	color: white;
+  font-size: 30px;
+	background-color: rgb(226,86,52);
+	margin-bottom: 10px;
+}
+
+.courtEjs{
+	font-weight: bold;
+	padding: 5px;
+	text-align: center;
+	padding-right: 10px;
+	font-size: 27px;
+	width: 50%;
+	margin-left: 25%;
+	margin-top: 12px;
+}
+
+.day{
+	padding:5px;
+}
+	/* Player EJS ###########################*/
+.joinButton{
+background: transparent;
+padding: 2%;
+border: 2px solid #e4552b;
+background-color: #e4552b;
+color: white;
+border: solid rgb(226, 228, 210) 1px;
+}
+
+.removeMe{
+	background: transparent;
+	padding: 2%;
+	border: 2px solid #e4552b;
+  border: solid rgb(226, 228, 210) 1px;
+	background-color: #e4552b;
+	color: white;
+}
+
+.deleteGame{
+	background: transparent;
+	padding: 2%;
+	border: 2px solid #e4552b;
+	border: solid rgb(226, 228, 210) 1px;
+	background-color: #e4552b;
+	color: white;
+}
+
+.joinButton:hover {
+	background: #d0c2bd;
+  text-decoration: none;
+}
+.deleteGame:hover {
+	background: #d0c2bd;
+  text-decoration: none;
+}
+.removeMe:hover {
+	background: #d0c2bd;
+  text-decoration: none;
+}
+h3{
+	color:white;
+
+}
+.out{
+	color: white;
+	background-color: inherit;
+	border: none;
+	font-size:15px;
+}
+
+.gameL{
+	font-size:18px;
+	color:black;
+}
+
+.upcoming{
+font-weight: bold;
+padding: 5px;
+text-align: center;
+padding-right: 10px;
+font-size: 30px;
+border: 2px solid white;
+width: 90%;
+margin-left: 5%;
+margin-top: 12px;
+background-color: #e4552b;
+color: white;
+}
 /*###################################### */
 /*media queries  */
 
